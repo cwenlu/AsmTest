@@ -1,0 +1,49 @@
+plugins {
+    id 'groovy'
+//    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation(gradleApi())
+    implementation(localGroovy())
+    implementation 'org.ow2.asm:asm:9.2'
+    implementation 'org.ow2.asm:asm-commons:9.2'
+    implementation 'org.ow2.asm:asm-util:9.2'
+    implementation('com.android.tools.build:gradle:7.0.0') {
+        exclude(group: 'org.ow2.asm')
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+//              groupId默认为root项目名字,artifactId为子项目名字
+                println groupId + "----" + artifactId
+                groupId = 'com.cwl'
+                artifactId = 'time-statistics'
+                version = '1.0.0'
+            }
+        }
+        repositories {
+//            这个对应publishMavenPublicationToMavenRepository
+            maven {
+                url '../repo'
+            }
+//            这个对应publishMavenPublicationToMavenLocal
+//            mavenLocal()
+        }
+    }
+}
+
+
+//gradlePlugin {
+//    plugins {
+//        timeStatisticPlugin {
+//            id = 'com.cwl.time-statistics-plugin'
+//            implementationClass = 'com.example.timestatisticplugin.TimeStatistics'
+//        }
+//    }
+//}
