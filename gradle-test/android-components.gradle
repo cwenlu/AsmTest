@@ -1,0 +1,8 @@
+//https://developer.android.google.cn/reference/tools/gradle-api/7.2/com/android/build/api/variant/AndroidComponentsExtension?hl=zh-cn
+androidComponents {
+
+    beforeVariants(selector().all()){
+        println("Called with variant : $name")
+    }
+
+}

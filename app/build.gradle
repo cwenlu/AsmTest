@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'time-statistics'
 }
-apply plugin: 'time-statistics'
+//apply plugin: 'time-statistics'
 
 android {
     compileSdk 31
@@ -52,7 +53,8 @@ statistics {
             ],
             [
                     'niu': 'ss',
-                    'aa':'ww'
+                    'aa' : 'ww'
             ]
     ]
 }
+apply from: '../gradle-test/android-components.gradle'

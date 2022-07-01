@@ -1,28 +1,37 @@
-//pluginManagement {
-//    repositories {
-//        gradlePluginPortal()
-//        google()
-//        mavenCentral()
-//        maven {
-//            url './repo'
-//        }
-//    }
-//    plugins {
-//        id 'com.android.application' version '7.1.0-alpha11'
-//        id 'com.android.library' version '7.1.0-alpha11'
-//        id 'org.jetbrains.kotlin.android' version '1.5.20'
-//        id 'cwl.time-statistics' version '1.0.0'
-//    }
-//}
-//dependencyResolutionManagement {
-//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-//    repositories {
-//        google()
-//        mavenCentral()
-//    }
-//}
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven {
+            url './repo'
+        }
+    }
+    plugins {
+        id 'com.android.application' version '7.2.0'
+        id 'com.android.library' version '7.2.0'
+        id 'org.jetbrains.kotlin.android' version '1.6.10'
+        id 'time-statistics' version '1.0.0'
+    }
 
+    resolutionStrategy {
+        eachPlugin {
+            if ("time-statistics" == requested.id.id) {
+                useModule("com.cwl:time-statistics:1.0.0")
+            }
+        }
+    }
+    dependencyResolutionManagement {
+        //加上这句使用resolutionStrategy 会报这个错repository ‘Gradle Libs‘ was added by unknown code
+//        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
+}
 rootProject.name = "AsmTest"
 include ':app'
 include ':TimeStatisticPlugin'
 
+include ':kt-test'

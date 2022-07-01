@@ -4,31 +4,32 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-buildscript {
-    ext.kotlin_version = '1.5.20'
-
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url './repo'
-        }
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.cwl:time-statistics:1.0.0'
-    }
-
-}
-
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+//这个以前的方式，新的方式在settings.gradle
+//buildscript {
+//    ext.kotlin_version = '1.6.10'
+//
+//    repositories {
+//        google()
+//        mavenCentral()
+//        maven {
+//            url './repo'
+//        }
+//    }
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:7.2.0'
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
+//        classpath 'com.cwl:time-statistics:1.0.0'
+//    }
+//
+//}
+//
+//
+//allprojects {
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
 
 
 
