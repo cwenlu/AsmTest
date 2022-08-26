@@ -4,6 +4,12 @@ plugins {
     id 'time-statistics'
 }
 apply plugin: SimplePlugin
+apply plugin: ExtendConfigPlugin
+
+extendConfig {
+    message = "app set message"
+    info = "app set info"
+}
 
 android {
     compileSdk 31

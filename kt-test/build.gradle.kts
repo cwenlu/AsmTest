@@ -3,6 +3,18 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("script-plugin")
 }
+apply<CustomAgpDslPlugin>()
+apply<ExtendConfigPlugin>()
+apply(from = "use-file-plugin.gradle.kts")
+
+//只有一个属性设置可以使用这种
+the<ExtendConfig>().message = "sas"
+
+//多个可以使用这种
+configure<ExtendConfig> {
+    message = "set message"
+    //info.set("set info")
+}
 
 android {
     compileSdk = 32
@@ -25,6 +37,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            the<BuildTypeExtension>().invocationParameters = "-debug -log"
         }
     }
     setFlavorDimensions(arrayListOf("flavor-cwl"))
