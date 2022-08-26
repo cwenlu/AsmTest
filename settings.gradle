@@ -1,3 +1,5 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -6,6 +8,9 @@ pluginManagement {
         maven {
             url './repo'
         }
+//        maven{
+//            url 'buildSrc'
+//        }
     }
     plugins {
         id 'com.android.application' version '7.2.0'
@@ -24,6 +29,8 @@ pluginManagement {
     dependencyResolutionManagement {
         //加上这句使用resolutionStrategy 会报这个错repository ‘Gradle Libs‘ was added by unknown code
 //        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+        repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
         repositories {
             google()
             mavenCentral()

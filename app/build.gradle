@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'time-statistics'
 }
-//apply plugin: 'time-statistics'
+apply plugin: SimplePlugin
 
 android {
     compileSdk 31
