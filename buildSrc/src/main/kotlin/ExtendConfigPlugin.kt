@@ -41,3 +41,5 @@ abstract class AbsExt {
         absInfo.convention("default absInfo")
     }
 }
+
+//https://docs.gradle.org/current/userguide/lazy_configuration.html#lazy_configuration

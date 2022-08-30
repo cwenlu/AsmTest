@@ -13,7 +13,12 @@ repositories {
     mavenCentral()
 }
 
-dependencies{
-    implementation("com.android.tools.build:gradle:7.2.1")
+dependencies {
+    implementation("org.ow2.asm:asm:9.2")
+    implementation("org.ow2.asm:asm-commons:9.2")
+    implementation("org.ow2.asm:asm-util:9.2")
+    implementation("com.android.tools.build:gradle:7.2.1") {
+        exclude(group = "org.ow2.asm")
+    }
     //gradleApi()
 }

@@ -1,10 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'time-statistics'
+
+    //这个加上apk没发安装，后面单独新写个插件试试
+//    id 'time-statistics'
+    // https://docs.gradle.org/current/userguide/custom_plugins.html#note_for_plugins_published_without_java_gradle_plugin
+    //注意这种方式必须使用插件发布方式才可以 java-gradle-plugin
+    //id 'time-statistics' version '1.0.0'
 }
 apply plugin: SimplePlugin
 apply plugin: ExtendConfigPlugin
+apply plugin: DumpArtifactPlugin
+apply plugin: TimeCostPlugin
 
 extendConfig {
     message = "app set message"
@@ -50,17 +57,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-statistics {
-    buryPoint = [
-            [
-                    'name': 'cwl',
-                    'age' : 20,
-                    'sex' : 'boy'
-            ],
-            [
-                    'niu': 'ss',
-                    'aa' : 'ww'
-            ]
-    ]
-}
+//statistics {
+//    buryPoint = [
+//            [
+//                    'name': 'cwl',
+//                    'age' : 20,
+//                    'sex' : 'boy'
+//            ],
+//            [
+//                    'niu': 'ss',
+//                    'aa' : 'ww'
+//            ]
+//    ]
+//}
 apply from: '../gradle-test/android-components.gradle'
