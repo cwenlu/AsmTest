@@ -8,22 +8,23 @@ pluginManagement {
         maven {
             url './repo'
         }
-//        maven{
-//            url 'buildSrc'
-//        }
     }
     plugins {
         id 'com.android.application' version '7.2.0'
         id 'com.android.library' version '7.2.0'
         id 'org.jetbrains.kotlin.android' version '1.6.10'
         id 'time-statistics' version '1.0.0'
+        id 'use-asm' version '1.0.0'
     }
-
     //https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_resolution_rules
     resolutionStrategy {
         eachPlugin {
+            //https://docs.gradle.org/current/userguide/custom_plugins.html#note_for_plugins_published_without_java_gradle_plugin
+            // 没有使用ava-gradle-plugin 插件方式发布缺少标记，需要配置发现策略
             if ("time-statistics" == requested.id.id) {
                 useModule("com.cwl:time-statistics:1.0.0")
+            }else if("use-asm" == requested.id.id){
+                useModule("com.cwl:use-asm:1.0.0")
             }
         }
     }
@@ -41,5 +42,5 @@ pluginManagement {
 rootProject.name = "AsmTest"
 include ':app'
 include ':TimeStatisticPlugin'
-
+include ':UseAsmPlugin'
 include ':kt-test'

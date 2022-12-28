@@ -1,12 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
-    //这个加上apk没发安装，后面单独新写个插件试试
+    //一般的通过resources写的插件
+//    id 'use-asm'
+    //这个利用java-gradle-plugin实现的,因为没有在pluginManagement#plugins中配置,这里需要指定版本.如果那里指定了这里可以直接使用id
+    id 'use-asm2' version '1.0.0'
+    //这个插件加上apk没发安装，后面单独新写个插件试试
 //    id 'time-statistics'
-    // https://docs.gradle.org/current/userguide/custom_plugins.html#note_for_plugins_published_without_java_gradle_plugin
-    //注意这种方式必须使用插件发布方式才可以 java-gradle-plugin
-    //id 'time-statistics' version '1.0.0'
 }
 apply plugin: SimplePlugin
 apply plugin: ExtendConfigPlugin

@@ -6,6 +6,7 @@ plugins {
 apply<CustomAgpDslPlugin>()
 apply<ExtendConfigPlugin>()
 apply(from = "use-file-plugin.gradle.kts")
+apply<WebCallPlugin>()
 
 //只有一个属性设置可以使用这种
 the<ExtendConfig>().message = "sas"
