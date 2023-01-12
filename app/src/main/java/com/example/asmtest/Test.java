@@ -17,14 +17,11 @@ public class Test {
         //    String s = sb.toString();
         //    System.out.println(s);
         //}
-
         long startTime = System.currentTimeMillis();
-        String str = "--- I'm the code line ---";
         long endTime = System.currentTimeMillis();
         long time = endTime - startTime;
         if (time > 500) {
             System.out.println("程序运行时间： " + time + "ms");
         }
-
     }
 }

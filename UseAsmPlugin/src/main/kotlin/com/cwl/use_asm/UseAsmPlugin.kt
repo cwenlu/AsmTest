@@ -1,7 +1,10 @@
 package com.cwl.use_asm
 
+import com.android.build.api.instrumentation.*
+import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.objectweb.asm.ClassVisitor
 
 /**
  * [custom plugin](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:custom_plugins_standalone_project)
@@ -9,9 +12,29 @@ import org.gradle.api.Project
  * @Date 2022/12/28 10:38 上午
  * @Description
  */
-class UseAsmPlugin:Plugin<Project> {
+class UseAsmPlugin : Plugin<Project> {
     override fun apply(target: Project) {
+        val androidComponents = target.extensions.getByType(AndroidComponentsExtension::class.java)
+        androidComponents.onVariants {
+            it.instrumentation.transformClassesWith(
+                UseAsmVisitorFactory::class.java,
+                InstrumentationScope.PROJECT
+            ) {}
 
+            it.instrumentation.setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_METHODS)
+        }
+    }
+}
+
+abstract class UseAsmVisitorFactory : AsmClassVisitorFactory<InstrumentationParameters.None> {
+    override fun createClassVisitor(
+        classContext: ClassContext,
+        nextClassVisitor: ClassVisitor
+    ): ClassVisitor {
+        return ClickClassVisitor(nextClassVisitor)
+    }
+    override fun isInstrumentable(classData: ClassData): Boolean {
+        return true
     }
 }
 

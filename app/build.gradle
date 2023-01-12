@@ -11,7 +11,7 @@ plugins {
 apply plugin: SimplePlugin
 apply plugin: ExtendConfigPlugin
 apply plugin: DumpArtifactPlugin
-apply plugin: TimeCostPlugin
+//apply plugin: TimeCostPlugin
 
 extendConfig {
     message = "app set message"
