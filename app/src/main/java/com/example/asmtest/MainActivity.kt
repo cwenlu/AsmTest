@@ -1,11 +1,9 @@
 package com.example.asmtest
 
-import android.icu.math.BigDecimal
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
@@ -36,46 +34,45 @@ class MainActivity : AppCompatActivity() {
         //println(measureDiscount(1, PriceInfo("5", null, "10"), "83"))
         //println(measureDiscount(1, PriceInfo("1.5", null, "10"), "100"))
         //println(measureDiscount(1, PriceInfo("1.5", null, "10"), "80"))
-
-        println(measureDiscount(2, PriceInfo(null, "7.5", null), "80"))
-        println(measureDiscount(2, PriceInfo(null, "5", null), "80"))
-        println(measureDiscount(2, PriceInfo(null, "5", null), "75.55"))
+        //println(measureDiscount(2, PriceInfo(null, "7.5", null), "80"))
+        //println(measureDiscount(2, PriceInfo(null, "5", null), "80"))
+        //println(measureDiscount(2, PriceInfo(null, "5", null), "75.55"))
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun measureDiscount(voucherType: Int, priceInfo: PriceInfo, price: String): BigDecimal {
-        val zero = BigDecimal(0)
-        val target = BigDecimal(price)
-        when (voucherType) {
-            1 -> {
-                val fullAmount = BigDecimal(priceInfo?.full_amount ?: return zero)
-                val pct = target.divide(fullAmount).toInt()
-                return BigDecimal(priceInfo?.amount ?: return zero).multiply(BigDecimal(pct))
-                    .setScale(2, BigDecimal.ROUND_HALF_UP)
-            }
-            2 -> {
-                val discountPct = BigDecimal(priceInfo?.discount ?: return zero)
-                return target.multiply(discountPct).divide(BigDecimal(10))
-                    .setScale(2, BigDecimal.ROUND_HALF_UP)
-            }
-        }
-        return zero
-    }
-
-    @Keep
-    data class PriceInfo(
-        /**
-         * 金额
-         */
-        var amount: String? = null,
-        /**
-         * 折扣   例如 7折，字段只返回7
-         */
-        var discount: String? = null,
-        /**
-         * 满减： 列如 满10减1. 该字段返回10，金额字段返回1
-         */
-        var full_amount: String? = null
-    )
+    //@RequiresApi(Build.VERSION_CODES.N)
+    //fun measureDiscount(voucherType: Int, priceInfo: PriceInfo, price: String): BigDecimal {
+    //    val zero = BigDecimal(0)
+    //    val target = BigDecimal(price)
+    //    when (voucherType) {
+    //        1 -> {
+    //            val fullAmount = BigDecimal(priceInfo?.full_amount ?: return zero)
+    //            val pct = target.divide(fullAmount).toInt()
+    //            return BigDecimal(priceInfo?.amount ?: return zero).multiply(BigDecimal(pct))
+    //                .setScale(2, BigDecimal.ROUND_HALF_UP)
+    //        }
+    //        2 -> {
+    //            val discountPct = BigDecimal(priceInfo?.discount ?: return zero)
+    //            return target.multiply(discountPct).divide(BigDecimal(10))
+    //                .setScale(2, BigDecimal.ROUND_HALF_UP)
+    //        }
+    //    }
+    //    return zero
+    //}
+    //
+    //@Keep
+    //data class PriceInfo(
+    //    /**
+    //     * 金额
+    //     */
+    //    var amount: String? = null,
+    //    /**
+    //     * 折扣   例如 7折，字段只返回7
+    //     */
+    //    var discount: String? = null,
+    //    /**
+    //     * 满减： 列如 满10减1. 该字段返回10，金额字段返回1
+    //     */
+    //    var full_amount: String? = null
+    //)
 }
