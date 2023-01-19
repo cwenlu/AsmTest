@@ -20,7 +20,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             //https://docs.gradle.org/current/userguide/custom_plugins.html#note_for_plugins_published_without_java_gradle_plugin
-            // 没有使用ava-gradle-plugin 插件方式发布缺少标记，需要配置发现策略
+            // 没有使用java-gradle-plugin 插件方式发布缺少标记，需要配置发现策略
             if ("time-statistics" == requested.id.id) {
                 useModule("com.cwl:time-statistics:1.0.0")
             }else if("use-asm" == requested.id.id){

@@ -2,6 +2,7 @@ package com.cwl.use_asm
 
 import com.cwl.use_asm.util.filterLambda
 import com.cwl.use_asm.util.nameWithDesc
+import com.cwl.use_asm.util.newSlotIndex
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Handle
 import org.objectweb.asm.Opcodes
@@ -46,6 +47,9 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
             //bsmArgs[1] 为org.objectweb.asm.Handle  是自动生成的方法
             //其余两个为org.objectweb.asm.Type
             dynamicInsnNodes.forEach {
+                println(it.name + "======" + it.desc)
+                val samType = Type.getType(it.desc).returnType
+                println("======" + samType.descriptor)
                 val handle = it.bsmArgs[1] as? Handle
                 if (handle != null) {
                     val nameWithDesc = handle.name + handle.desc
@@ -75,13 +79,11 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
         //    it.descriptor == VIEW_DESC
         //}
 
-        //判断不是frame 指令认为是方法体开头
-        val insnNodeStart =
-            methodNode.instructions.firstOrNull { it.opcode > Opcodes.F_SAME1 }
         //判断是return指令认为是方法结尾
         val insnNodeEnd = methodNode.instructions.reversed()
             .firstOrNull { (Opcodes.IRETURN <= it.opcode) and (it.opcode <= Opcodes.RETURN) }
 
+        val slot = methodNode.newSlotIndex(Type.LONG_TYPE)
         val insnListBefore = InsnList().apply {
             add(
                 MethodInsnNode(
@@ -92,7 +94,7 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
                     false
                 )
             )
-            add(VarInsnNode(Opcodes.LSTORE, 1))
+            add(VarInsnNode(Opcodes.LSTORE, slot))
         }
         val insnListAfter = InsnList().apply {
             add(
@@ -104,9 +106,9 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
                     false
                 )
             )
-            add(VarInsnNode(Opcodes.LLOAD, 1))
+            add(VarInsnNode(Opcodes.LLOAD, slot))
             add(InsnNode(Opcodes.LSUB))
-            add(VarInsnNode(Opcodes.LSTORE, 1))
+            add(VarInsnNode(Opcodes.LSTORE, slot))
 
             add(
                 FieldInsnNode(
@@ -136,7 +138,7 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
                     "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
                 )
             )
-            add(VarInsnNode(Opcodes.LLOAD, 1))
+            add(VarInsnNode(Opcodes.LLOAD, slot))
             add(
                 MethodInsnNode(
                     Opcodes.INVOKEVIRTUAL,
@@ -172,8 +174,12 @@ class ClickClassVisitor(private val nextClassVisitor: ClassVisitor) : ClassNode(
             )
         }
 
-        methodNode.instructions.insertBefore(insnNodeStart, insnListBefore)
+        methodNode.instructions.insert(insnListBefore)
         methodNode.instructions.insertBefore(insnNodeEnd, insnListAfter)
+        println("===========")
+        methodNode.instructions.forEach {
+            println("${it.opcode}-----${it.type}")
+        }
     }
 
     //private fun dumpMethod(methodNode: MethodNode) {

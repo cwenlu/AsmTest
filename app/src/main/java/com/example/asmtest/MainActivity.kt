@@ -14,11 +14,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.btn1).setOnClickListener {
+            var s = "wu"
+            if (s == "wu") {
+                s = "aa"
+            }
             Thread.sleep(100)
         }
 
         findViewById<Button>(R.id.btn2).setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
+                var sd = "sada"
+                if (sd == "wu") {
+                    sd = "aa"
+                }
                 Thread.sleep(50)
             }
 

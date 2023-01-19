@@ -6,20 +6,9 @@ package com.example.asmtest;
  * @Description
  */
 public class Test {
-    public String qw;
-    public long qe;
-
-    Test(WW w) {
-        qw = "waaa";
-        qe = 3142L;
-
-    }
-
-    static void gg(double d, String a) {
-        String m = d + a;
-    }
+    Asm asm = (s) -> "aa";
 }
 
-class WW {
-
+interface Asm {
+    String wk(int s);
 }
